@@ -50,10 +50,10 @@ freqs[0]=a
 light=3e8*np.ones(freqs.shape)
 lam=(light/(freqs*1e12))*1e6
 X,lamda=np.meshgrid(x,lam)
-#lamda[1]=0
-#lamda[0]=0
-#lamda[2]=0
-#lamda[3]=0
+lamda[1]=0
+lamda[0]=0
+lamda[2]=0
+lamda[3]=0
 
 ####transition Xf
 Xf=xf.T

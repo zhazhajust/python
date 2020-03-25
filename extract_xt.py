@@ -93,7 +93,7 @@ if __name__ == "__main__":
            for x in range(1,int(gridnumber/x_interval)+1):
               a=int(x*x_interval)
               d_n=int((1e15*delta_x*a/c)/dt)
-              if n-d_n > 0 and n-d_n < 20 :
+              if n-d_n > 0 and n-d_n < t_size :
                     #[fs]
                    xt[x][n-d_n]=data['Magnetic Field/Bz'].data[a-1][y]/bxunit            
         else:
