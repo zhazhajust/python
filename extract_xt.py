@@ -57,9 +57,9 @@ if __name__ == "__main__":
   gridnumber = 2400
   delta_x =  x_end/gridnumber
   start   =  1  # start time
-  stop    =  30  # end time
+  stop    =  1000  # end time
   step    =  1  # the interval or step
-  dt_snapshot= 10e-15  #fs
+  dt_snapshot= 1e-15  #fs
   dt      =  dt_snapshot*1e15  #fs
   t_end   =  stop * dt_snapshot
   t_n     =  int(t_end/1e-15)

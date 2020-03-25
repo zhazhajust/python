@@ -3,14 +3,14 @@ import sdf
 import numpy as np
 ###
 
-xt=np.loadtxt("xt.txt")
+xt=np.loadtxt("./txt/xt.txt")
 
 ###
 c       =  3e8
 micron  =  1e-6
 gridnumber = 2400
-stop    =  30
-dt_snapshot= 10e-15
+stop    =  1000
+dt_snapshot= 1e-15
 dt      =  dt_snapshot*1e15      #fs
 x_max   =  60 * micron
 x_min   =  0 * micron
