@@ -45,36 +45,41 @@ t=np.arange(0,t_size+dt,dt)
 
 #####set x ,y         
 x=np.arange(int(xgrid/x_interval)+1)
-a=float("inf")
-freqs[0]=a
-light=3e8*np.ones(freqs.shape)
-lam=(light/(freqs*1e12))*1e6
-X,lamda=np.meshgrid(x,lam)
-lamda[1]=0
-lamda[0]=0
-lamda[2]=0
-lamda[3]=0
+#a=float("inf")
+#freqs[0]=a
+#light=3e8*np.ones(freqs.shape)
+#lam=(light/(freqs*1e12))*1e6
+X,Freqs=np.meshgrid(x,freqs)
+#lamda[1]=0
+#lamda[0]=0
+#lamda[2]=0
+#lamda[3]=0
 
 ####transition Xf
 Xf=xf.T
 #plot
 fig,ax=plt.subplots()
-im=ax.pcolormesh(X,lamda,Xf,cmap=plt.get_cmap('rainbow'))
+im=ax.pcolormesh(X,Freqs,Xf,cmap=plt.get_cmap('rainbow'))
 fig.colorbar(im,ax=ax)
 #fig.savefig('Xf.png',dpi=200)
 #set ticker
-def x_formatter(x, pos):
-          delta_x=60*1e-6/2400
-          a=delta_x*x_interval*x*1e6
-          return  "%d"%a
 
+def x_formatter(x, pos):
+        delta_x=60*1e-6/2400
+        a=delta_x*x*x_interval*1e6
+        return  "%d"%int(a)
+def freqs_formatter(x, pos):
+          
+        return  "%d"%int(x)
 x_major_locator=int(xgrid/x_interval/5)
 x_minor_locator=int(xgrid/x_interval/10)
 ax.xaxis.set_major_locator( MultipleLocator(x_major_locator) )
 ax.xaxis.set_major_formatter( FuncFormatter( x_formatter ) )
 ax.xaxis.set_minor_locator( MultipleLocator(x_minor_locator) )
+ax.yaxis.set_major_formatter( FuncFormatter( freqs_formatter ) )
 ax.set_xlabel('um')
-ax.set_ylabel('um')
+ax.set_ylabel('Thz')
+
 #print and save
 plt.show()
-fig.savefig("fig/lamda.png",dpi=200)
+fig.savefig("fig/freqs.png",dpi=200)

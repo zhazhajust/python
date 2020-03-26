@@ -11,7 +11,8 @@ from numpy import ma
 from matplotlib import colors, ticker, cm
 from matplotlib.mlab import bivariate_normal
 from scipy.interpolate import spline
-  
+
+npsave="./txt1/xt.txt"
 if __name__ == "__main__":
   ######## Constant defined here ########
   pi        =     3.1415926535897932384626
@@ -50,16 +51,16 @@ if __name__ == "__main__":
   micron  =  1e-6 
   x_max   =  60 * micron
   x_min   =  0 * micron
-  window_start_time =  (x_max - x_min) / c 
+  window_start_time =  (x_max - x_min) / c
   dt_snapshot= 0.3e-15  #fs
-  dt      =  dt_snapshot*1e15  #fs
-  start_move_number =  int(window_start_time / dt_snapshot)
+  dt      =  dt_snapshot*1e15
+  start_move_number =  int(window_start_time/dt_snapshot)
   y       =  1250
   x_end   =  60 * micron
   gridnumber = 2400
   delta_x =  x_end/gridnumber
   start   =  1  # start time
-  stop    =  21667  # end time
+  stop    =  2000  # end time
   step    =  1  # the interval or step
   t_end   =  stop * dt_snapshot
   t_n     =  int(t_end/1e-15)
@@ -76,37 +77,38 @@ if __name__ == "__main__":
  
 ####################
 
-  x_interval=10
+  x_interval=1
   t_total=1e15*x_end/c         #fs
   t_size=int(t_total/dt)+1+1   
-
+  t_m=stop+step
 ######allay define
-  xt=np.zeros((int(xgrid/x_interval)+1,t_size))
+  xt=np.zeros((int(xgrid/x_interval)+1,t_m))
 
   for n in range(start,stop+step,step):
         #### header data ####
         data = sdf.read(dirsdf+str(n).zfill(dirsize)+".sdf",dict=True)
         header=data['Header']
         time=header['time']
+        #print "start_move_number",start_move_number
         if  n  <  start_move_number:
                      
            for x in range(1,int(gridnumber/x_interval)+1):
               a=int(x*x_interval)
               d_n=int((1e15*delta_x*a/c)/dt)
-              if n-d_n > 0 and n-d_n < t_size :
+              #if n-d_n > 0 and n-d_n < t_size :
                     #[fs]
-                   xt[x][n-d_n]=data['Magnetic Field/Bz'].data[a-1][y]/bxunit            
+              xt[x][n]=data['Magnetic Field/Bz'].data[a-1][y]/bxunit            
         else:
            for x in range(1,int(xgrid/x_interval)+1):
                 
              #if x > 1200 :
                a=int(x*x_interval)
 	       if a-c*(time-window_start_time)/delta_x >= 0 and a-c*(time-window_start_time)/delta_x < gridnumber-1:
-		    #[fs]
+	      	    #[fs]
                    d_n=int((1e15*delta_x*a/c)/dt)
-                   xt[x][n-d_n]=data['Magnetic Field/Bz'].data[int(round(a-c*(time-window_start_time)/delta_x))][y]/bxunit
+                   xt[x][n]=data['Magnetic Field/Bz'].data[int(round(a-c*(time-window_start_time)/delta_x))][y]/bxunit
                    #else:bz.append(0)
                    #print 'Reading finished%d' %len(t)
   
-  np.savetxt("./txt/xt.txt", xt)
+  np.savetxt(npsave, xt)
 
