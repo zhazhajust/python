@@ -5,17 +5,21 @@ import sdf
 import matplotlib.pyplot as pl
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 plt.switch_backend('agg')
-xt=np.loadtxt('txt/xt.txt')
+
+
+xt=np.loadtxt('txt/niezan/xt.txt')
+savedir='fig/niezan/x_t.png'
 #constant
 c       =  3e8
 micron  =  1e-6
+lamada   =  0.8 * micron
 gridnumber = 2400
-stop    =  21667
-dt_snapshot= 0.3e-15
+stop    =  17000
+dt_snapshot= 1e-15
 dt      =  dt_snapshot*1e15      #fs
-x_end   =  60 * micron
-x_max   =  60 * micron
-x_min   =  0 * micron
+x_max   =  60 * micron#lamada
+x_min   =  0 * micron#lamada
+x_end   =  x_max - x_min
 window_start_time =  (x_max - x_min) / c
 delta_x =  x_end/gridnumber
 t_end   =  stop * dt_snapshot
@@ -56,7 +60,6 @@ fig.colorbar(im,ax=ax)
 #fig.savefig('Xf.png',dpi=200)
 #set ticker
 def x_formatter(x, pos):
-        delta_x=60*1e-6/2400
         a=delta_x*x*x_interval*1e6
         return  "%d"%int(a)
 def t_formatter(x, pos):
@@ -75,4 +78,4 @@ ax.set_ylabel('fs')
 
 #print and save
 plt.show()
-fig.savefig("fig/x_time.png",dpi=200)
+fig.savefig(savedir,dpi=200)
