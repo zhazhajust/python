@@ -12,11 +12,11 @@ from matplotlib import colors, ticker, cm
 from matplotlib.mlab import bivariate_normal
 from scipy.interpolate import spline
 
-savedir="./txt/a0_1_n^2/"
+savedir="./txt/ac_a0_1/"
 savename="xt.txt"
-fftdir ="./fig/a0_1_n^2/"  
+fftdir ="./fig/ac_a0_1/"  
 ###
-dirsdf  =  '../Data/a0_1_n^2/'
+dirsdf  =  '../Data/ac_a0_1/'
 dirsize =  5
 if __name__ == "__main__":
   ######## Constant defined here ########
@@ -77,14 +77,14 @@ if __name__ == "__main__":
 ####electron locate
   dt      =  dt_snapshot*1e15  #fs
   start_move_number =  int(window_start_time / dt_snapshot)
-  y       =  1000      #1250
+  y       =  1000
   x_end   =  x_max - x_min
   gridnumber = 2400
   delta_x =  x_end/gridnumber
 
 ###file_number
   start   =  1  # start time
-  stop    =  35334   #22967 #21667  # end time
+  stop    =  17667   #22967 #21667  # end time
   step    =  1  # the interval or step
   t_end   =  stop * dt_snapshot
   t_n     =  int(t_end/1e-15)

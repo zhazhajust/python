@@ -7,17 +7,17 @@ from matplotlib.ticker import MultipleLocator, FuncFormatter
 plt.switch_backend('agg')
 
 
-xt=np.loadtxt('txt/niezan/xt.txt')
-savedir='fig/niezan/x_t.png'
+xt=np.loadtxt('txt/a0_1_n^2/xt.txt')
+savedir='fig/a0_1_n^2/x_t.png'
 #constant
 c       =  3e8
 micron  =  1e-6
-lamada   =  0.8 * micron
+lamada   =  10.6 * micron
 gridnumber = 2400
-stop    =  17000
-dt_snapshot= 1e-15
+stop    =  35334
+dt_snapshot= 3e-15
 dt      =  dt_snapshot*1e15      #fs
-x_max   =  60 * micron#lamada
+x_max   =  80 * lamada   #60 * lamada
 x_min   =  0 * micron#lamada
 x_end   =  x_max - x_min
 window_start_time =  (x_max - x_min) / c

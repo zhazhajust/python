@@ -6,19 +6,20 @@ import matplotlib.pyplot as pl
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 plt.switch_backend('agg')
 
-xf=np.loadtxt('txt/acceleration/xf.txt')
+#name="contrast/density_half"
+xf=np.loadtxt('txt/density_100_half/xf.txt')
 ###
-locate  =  16500        #micron
-savedir = "fig/acceleration/freqs"+str(locate)+".png"
+locate  =  12500        #micron
+savedir = "fig/density_100_half/freqs"+str(locate)+".png"
 #constant
 c       =  3e8
 micron  =  1e-6
 lamada  =  10.6 * micron
 gridnumber = 2400
-stop    =  21667
+stop    =  22967
 dt_snapshot= 3e-15
 dt      =  dt_snapshot*1e15      #fs
-x_max   =  60 * lamada
+x_max   =  100 * lamada
 x_min   =  0 * lamada
 x_end   =  x_max -x_min
 window_start_time =  (x_max - x_min) / c
@@ -29,6 +30,7 @@ t_total=1e15*x_end/c         #fs
 t_size=t_total/(dt_snapshot*1e15)+1+1           #t_grid_number
 ######t_size=int(1e15*gridnumber*delta_x/c)+1
 x       = int(locate/(delta_x*x_interval*1e6))
+print "x:"+str(x)
 #######
 if t_end-window_start_time<0:
       xgrid   =  int(gridnumber)
@@ -53,10 +55,11 @@ freqs=np.linspace(0,fs/2,length)
 ####transition Xf
 Xf=xf[x]
 #plot
+#np.savetxt(str(name)+str(locate)+"_freqs.txt",Xf)
 fig,ax=plt.subplots()
 line=ax.plot(freqs,Xf)
 plt.xlim((0,50))
-          
+print "max:",str(max(Xf))         
 ax.set_xlabel('Thz')
 ax.set_ylabel('')
 

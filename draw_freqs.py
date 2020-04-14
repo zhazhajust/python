@@ -6,17 +6,19 @@ import matplotlib.pyplot as pl
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 plt.switch_backend('agg')
 
-xf=np.loadtxt('txt/xf.txt')
+xf=np.loadtxt('txt/a0_1_n^2/xf.txt')
+savedir="fig/a0_1_n^2/freqs.png"
 #constant
 c       =  3e8
 micron  =  1e-6
+lamada  =  10.6 * micron 
 gridnumber = 2400
-stop    =  21667
-dt_snapshot= 0.3e-15
+stop    =  35334
+dt_snapshot= 3e-15
 dt      =  dt_snapshot*1e15      #fs
-x_end   =  60 * micron
-x_max   =  60 * micron
+x_max   =  80 * lamada   #60 * lamada #micron
 x_min   =  0 * micron
+x_end   =  x_max - x_min 
 window_start_time =  (x_max - x_min) / c
 delta_x =  x_end/gridnumber
 t_end   =  stop * dt_snapshot
@@ -35,6 +37,12 @@ N0 = t_size
 T=t_size*dt             #fs  #dt_snapshot*1e15  #t[x][t_size-1]-t[x][0]
 fs=N0*1e3/T
 freqs=np.linspace(0,fs/2,int(N0/2)+1)
+######
+for i in range(0,len(freqs)):
+     if freqs[i] > 40:
+         index = i
+         break;
+freqs=freqs[0:index]
 ################freqs=np.linspace(0,500,101)
 #####time profile
 t=np.arange(0,t_size+dt,dt)
@@ -59,13 +67,15 @@ X,Freqs=np.meshgrid(x,freqs)
 Xf=xf.T
 #plot
 fig,ax=plt.subplots()
+###
+Xf=Xf[0:index,...]
+###
 im=ax.pcolormesh(X,Freqs,Xf,cmap=plt.get_cmap('rainbow'))
 fig.colorbar(im,ax=ax)
 #fig.savefig('Xf.png',dpi=200)
 #set ticker
 
 def x_formatter(x, pos):
-        delta_x=60*1e-6/2400
         a=delta_x*x*x_interval*1e6
         return  "%d"%int(a)
 def freqs_formatter(x, pos):
@@ -73,6 +83,9 @@ def freqs_formatter(x, pos):
         return  "%d"%int(x)
 x_major_locator=int(xgrid/x_interval/5)
 x_minor_locator=int(xgrid/x_interval/10)
+
+#y_tick_pos  = np.linspace(0,40,1)
+#ax.set_yticks(y_tick_pos)
 ax.xaxis.set_major_locator( MultipleLocator(x_major_locator) )
 ax.xaxis.set_major_formatter( FuncFormatter( x_formatter ) )
 ax.xaxis.set_minor_locator( MultipleLocator(x_minor_locator) )
@@ -82,4 +95,4 @@ ax.set_ylabel('Thz')
 
 #print and save
 plt.show()
-fig.savefig("fig/freqs.png",dpi=200)
+fig.savefig(savedir,dpi=200)

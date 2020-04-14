@@ -11,12 +11,12 @@ from numpy import ma
 from matplotlib import colors, ticker, cm
 from matplotlib.mlab import bivariate_normal
 from scipy.interpolate import spline
-
-savedir="./txt/a0_1_n^2/"
+savedir="./txtbak/density1e-2/"
+#savedir="./txt/density1e-2/"
 savename="xt.txt"
-fftdir ="./fig/a0_1_n^2/"  
+fftdir ="./fig/density1e-2/"  
 ###
-dirsdf  =  '../Data/a0_1_n^2/'
+dirsdf  =  '../Data/density1e-2/'
 dirsize =  5
 if __name__ == "__main__":
   ######## Constant defined here ########
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
 ###file_number
   start   =  1  # start time
-  stop    =  35334   #22967 #21667  # end time
+  stop    =  17667   #22967 #21667  # end time
   step    =  1  # the interval or step
   t_end   =  stop * dt_snapshot
   t_n     =  int(t_end/1e-15)
@@ -100,7 +100,7 @@ if __name__ == "__main__":
   ######### Script code drawing figure ################
  
 ####################
-  x_interval=10
+  x_interval=1
   t_total=1e15*x_end/c         #fs
   t_size=int(t_total/dt)+1+1   
 
