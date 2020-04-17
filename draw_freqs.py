@@ -3,18 +3,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sdf
 import matplotlib.pyplot as pl
+from matplotlib.ticker import EngFormatter
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 plt.switch_backend('agg')
 
-xf=np.loadtxt('txt/a0_1_n^2/xf.txt')
-savedir="fig/a0_1_n^2/freqs.png"
+xf=np.loadtxt('txt/density2e-2/xf.txt')
+savedir="fig/density2e-2/freqs.png"
 #constant
 c       =  3e8
 micron  =  1e-6
 lamada  =  10.6 * micron 
 gridnumber = 2400
-stop    =  35334
-dt_snapshot= 3e-15
+stop    =  5000
+dt_snapshot= 9e-15
 dt      =  dt_snapshot*1e15      #fs
 x_max   =  80 * lamada   #60 * lamada #micron
 x_min   =  0 * micron
@@ -39,10 +40,12 @@ fs=N0*1e3/T
 freqs=np.linspace(0,fs/2,int(N0/2)+1)
 ######
 for i in range(0,len(freqs)):
-     if freqs[i] > 40:
+     if freqs[i] > 50:
          index = i
          break;
+
 freqs=freqs[0:index]
+
 ################freqs=np.linspace(0,500,101)
 #####time profile
 t=np.arange(0,t_size+dt,dt)
@@ -86,13 +89,18 @@ x_minor_locator=int(xgrid/x_interval/10)
 
 #y_tick_pos  = np.linspace(0,40,1)
 #ax.set_yticks(y_tick_pos)
+######
+#ax.set_yscale("symlog",basey=2)
+ax.set_ylim((0,50))
 ax.xaxis.set_major_locator( MultipleLocator(x_major_locator) )
 ax.xaxis.set_major_formatter( FuncFormatter( x_formatter ) )
 ax.xaxis.set_minor_locator( MultipleLocator(x_minor_locator) )
+ax.yaxis.set_minor_locator( MultipleLocator(5) )
+#formatter0 = EngFormatter(unit='THz')
+#ax.yaxis.set_major_formatter(formatter0)
 ax.yaxis.set_major_formatter( FuncFormatter( freqs_formatter ) )
 ax.set_xlabel('um')
 ax.set_ylabel('Thz')
-
 #print and save
 plt.show()
 fig.savefig(savedir,dpi=200)

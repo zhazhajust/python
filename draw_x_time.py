@@ -7,8 +7,8 @@ from matplotlib.ticker import MultipleLocator, FuncFormatter
 plt.switch_backend('agg')
 
 
-xt=np.loadtxt('txt/a0_1_n^2/xt.txt')
-savedir='fig/a0_1_n^2/x_t.png'
+xt=np.loadtxt('txt/density2e-2/xt.txt')
+savedir='fig/density2e-2/x_t.png'
 #constant
 c       =  3e8
 micron  =  1e-6

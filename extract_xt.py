@@ -12,12 +12,12 @@ from matplotlib import colors, ticker, cm
 from matplotlib.mlab import bivariate_normal
 from scipy.interpolate import spline
 
-savedir="./txt/a0_1_n^2/"
+savedir="./txt/density2e-2/"
 savename="xt.txt"
-fftdir ="./fig/a0_1_n^2/"  
+fftdir ="./fig/density2e-2/"  
 ###
-dirsdf  =  '../Data/a0_1_n^2/'
-dirsize =  5
+dirsdf  =  '../Data/density2e-2/'
+dirsize =  4
 if __name__ == "__main__":
   ######## Constant defined here ########
   pi        =     3.1415926535897932384626
@@ -71,7 +71,7 @@ if __name__ == "__main__":
 ####dt
 
 
-  dt_snapshot= 3e-15  #fs
+  dt_snapshot= 9e-15  #fs
 
 
 ####electron locate
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
 ###file_number
   start   =  1  # start time
-  stop    =  35334   #22967 #21667  # end time
+  stop    =  5000   #22967 #21667  # end time
   step    =  1  # the interval or step
   t_end   =  stop * dt_snapshot
   t_n     =  int(t_end/1e-15)

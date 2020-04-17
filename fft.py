@@ -3,15 +3,15 @@ import sdf
 import numpy as np
 ###
 
-xt=np.loadtxt("./txt/a0_1_n^2/xt.txt")
-savedir =  "./txt/a0_1_n^2/xf.txt"
+xt=np.loadtxt("./txt/density2e-2/xt.txt")
+savedir =  "./txt/density2e-2/xf.txt"
 ###
 c       =  3e8
 micron  =  1e-6
 lamada  =  10.6 * micron
 gridnumber = 2400
-stop    =  35334 #17000
-dt_snapshot= 3e-15
+stop    =  5000 #17000
+dt_snapshot= 9e-15
 dt      =  dt_snapshot*1e15      #fs
 x_max   =  80 * lamada   #60 * lamada    #micron
 x_min   =  0 * micron

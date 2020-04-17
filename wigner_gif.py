@@ -4,7 +4,7 @@ import sdf
 import imageio
 import os
 import scipy.signal as signal
-import constant as const
+import constant
 plt.switch_backend('agg')
 ###
 start=1
@@ -28,13 +28,13 @@ for i in range(start,stop,step):
   bz=Bz.data
   density=data['Derived/Number_Density/electron1'].data
   bz=bz.T
-  density=density.T
   bz_y0=bz[1000]
-  f,t,zxx=signal.stft(bz_y0,fs=const.c/const.delta_x/1e12,nperseg=50)
+  f,x,zxx=signal.stft(bz_y0,fs=delta_x/c)
+  density=density.T
   fig,axs=plt.subplots(3,1)
   im=axs[0].pcolormesh(bz,cmap=plt.get_cmap('bwr'))
   im2=axs[1].pcolormesh(density,cmap=plt.get_cmap('gray'))
-  im3=axs[2].pcolormesh(np.abs(zxx),cmap=plt.get_cmap('BuPu'))
+  im3=axs[2].pcolormesh(x,f,zxx,cmap=plt.get_cmap('bwr'))
   axs[0].set_title(time,fontsize=12,color='r')
   fig.savefig(savefigdir+"bz.png",dpi=200)
   

@@ -13,7 +13,7 @@ c       =  3e8
 micron  =  1e-6
 lamada  =  10.6 * micron
 gridnumber = 2400
-stop    =  33557
+stop    =  35334
 dt_snapshot= 3e-15
 dt      =  dt_snapshot*1e15      #fs
 
@@ -38,7 +38,7 @@ N0 = t_size
 T=t_size*dt             #fs  #dt_snapshot*1e15  #t[x][t_size-1]-t[x][0]
 fs=N0*1e3/T
 lenth = xf.shape[1]
-freqs=np.linspace(0,fs/2,lenth)    #int(N0/2)+1)
+freqs=np.linspace(0,fs/2,N0/2+1)    #int(N0/2)+1)
 ################freqs=np.linspace(0,500,101)
 #####time profile
 t=np.arange(0,t_size+dt,dt)
@@ -75,6 +75,7 @@ def x_formatter(x, pos):
 x_major_locator=int(xgrid/x_interval/5)
 x_minor_locator=int(xgrid/x_interval/10)
 ax.set_yscale("symlog")
+ax.set_ylim((5,50))
 ax.xaxis.set_major_locator( MultipleLocator(x_major_locator) )
 ax.xaxis.set_major_formatter( FuncFormatter( x_formatter ) )
 ax.xaxis.set_minor_locator( MultipleLocator(x_minor_locator) )
