@@ -7,15 +7,15 @@ from matplotlib.ticker import MultipleLocator, FuncFormatter
 plt.switch_backend('agg')
 
 
-xt=np.loadtxt('txt/density2e-2/xt.txt')
-savedir='fig/density2e-2/x_t.png'
+xt=np.loadtxt('txt/a0_1_2e-2/xt.txt')
+savedir='fig/a0_1_2e-2/x_t.png'
 #constant
 c       =  3e8
 micron  =  1e-6
 lamada   =  10.6 * micron
 gridnumber = 2400
-stop    =  35334
-dt_snapshot= 3e-15
+stop    =  5889
+dt_snapshot= 9e-15
 dt      =  dt_snapshot*1e15      #fs
 x_max   =  80 * lamada   #60 * lamada
 x_min   =  0 * micron#lamada

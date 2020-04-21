@@ -8,14 +8,13 @@ import constant as const
 plt.switch_backend('agg')
 ###
 start=1
-stop =5000
-step =200
+stop =17000
+step =1000
 ####
-sdfdir="../Data/density2e-2/"
-filenumber=4
+sdfdir="../Data/test_niezan/"
+filenumber=5
 savedir ="./gif/"
-density_name="density2e-2.gif"
-E_name="e_density2e-2.gif"
+density_name="test_niezan.gif"
 if (os.path.isdir(savedir) == False):
     os.mkdir(savedir)
 image_list=[]
@@ -23,18 +22,20 @@ for i in range(start,stop,step):
   x=i
   savefigdir="./gif/png/"+str(x)
   data=sdf.read(sdfdir+str(x).zfill(filenumber)+".sdf",dict=True)
-  Bz=data['Magnetic Field/Bz']
+  Bz=data['Electric Field/Ey']
   time=data['Header']['time']
   bz=Bz.data
   density=data['Derived/Number_Density/electron1'].data
   bz=bz.T
   density=density.T
-  bz_y0=bz[1000]
-  f,t,zxx=signal.stft(bz_y0,fs=const.c/const.delta_x/1e12,nperseg=50)
+  bz_y0=bz[500]
+  k0=2*3.14/0.8e-6
+  f,t,zxx=signal.stft(bz_y0,fs=2*3.14/const.delta_x/k0,nperseg=const.nperseg)
   fig,axs=plt.subplots(3,1)
   im=axs[0].pcolormesh(bz,cmap=plt.get_cmap('bwr'))
   im2=axs[1].pcolormesh(density,cmap=plt.get_cmap('gray'))
-  im3=axs[2].pcolormesh(np.abs(zxx),cmap=plt.get_cmap('BuPu'))
+  im3=axs[2].pcolormesh(t,f,np.abs(zxx),cmap=plt.get_cmap('BuPu'))
+  axs[2].set_ylim((0,2))
   axs[0].set_title(time,fontsize=12,color='r')
   fig.savefig(savefigdir+"bz.png",dpi=200)
   

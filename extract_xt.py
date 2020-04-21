@@ -12,11 +12,11 @@ from matplotlib import colors, ticker, cm
 from matplotlib.mlab import bivariate_normal
 from scipy.interpolate import spline
 
-savedir="./txt/density2e-2/"
+savedir="./txt/a0_1_2e-2/"
 savename="xt.txt"
-fftdir ="./fig/density2e-2/"  
+fftdir ="./fig/a0_1_2e-2/"  
 ###
-dirsdf  =  '../Data/density2e-2/'
+dirsdf  =  '../Data/a0_1_2e-2/'
 dirsize =  4
 if __name__ == "__main__":
   ######## Constant defined here ########
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
 ###file_number
   start   =  1  # start time
-  stop    =  5000   #22967 #21667  # end time
+  stop    =  5889   #22967 #21667  # end time
   step    =  1  # the interval or step
   t_end   =  stop * dt_snapshot
   t_n     =  int(t_end/1e-15)
@@ -119,7 +119,7 @@ if __name__ == "__main__":
               d_n=int((1e15*delta_x*a/c)/dt)
               if n-d_n > 0 and n-d_n < t_size :
                     #[fs]
-                   xt[x][n-d_n]=data['Magnetic Field/Bz'].data[a-1][y]/bxunit            
+                   xt[x][n-d_n]=data['Electric Field/Ey'].data[a-1][y]/bxunit            
         else:
            for x in range(1,int(xgrid/x_interval)+1):
                 
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 	       if a-c*(time-window_start_time)/delta_x >= 0 and a-c*(time-window_start_time)/delta_x < gridnumber-1:
 		    #[fs]
                    d_n=int((1e15*delta_x*a/c)/dt)
-                   xt[x][n-d_n]=data['Magnetic Field/Bz'].data[int(round(a-c*(time-window_start_time)/delta_x))][y]/bxunit
+                   xt[x][n-d_n]=data['Electric Field/Ey'].data[int(round(a-c*(time-window_start_time)/delta_x))][y]/bxunit
                    #else:bz.append(0)
                    #print 'Reading finished%d' %len(t)
   
