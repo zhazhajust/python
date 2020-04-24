@@ -14,7 +14,8 @@ def E_x_y_zxx(a):
 	k,x,zxx=signal.stft(Ey_y0,fs=2*pi/const.delta_x,nperseg=const.nperseg)
 	zxx=abs(zxx)
 	index = np.unravel_index(zxx.argmax(),zxx.shape)
-	k_x=np.ones(const.Nx)*k[index[0]]
+	k_x=np.ones(const.Nx)*k[index[0]+1]
+	print "k_x",k_x
 	for i in range(0,const.Nx):
 		x=i
 		a=zxx[...,int(x/const.nperseg)]
@@ -22,7 +23,7 @@ def E_x_y_zxx(a):
 		a[0]=0
 		max_index=a.index(max(a))
 		if max(a) > 0.2 * zxx[index[0]][index[1]]:
-			k_x[i]=(k[max_index])
+			k_x[i]=(k[max_index+1])
 	ne=data['Derived/Number_Density/electron1'].data
 	ne_y0=ne[...,int(const.Ny/2)]
 
@@ -73,7 +74,7 @@ def ref_index(x,Ex_y0,Ey_y0,zxx,ne_y0,k_x):
 	a=wp_x_2/(1+p_y0_x)
 	b=(k_x*c)**2
 	c=-(k_x*c)**2
-#	print "a,b,c",a,b,c
+	print "a,b,c",a,b,c
 	return np.roots([a,b,c])
 def ref_a(a):   
 	ref=[]
@@ -83,14 +84,15 @@ def ref_a(a):
 	p_y0=scalar_p(Ex_y0)
 	for b in range(0,x):
 		c=ref_index(b,Ex_y0,Ey_y0,zxx,ne_y0,k_x)
-		if c.shape == 2:
+		print "c",c
+		if c.shape == (2,):
 			c=c[1]
 		ref.append(c)
 	return ref
-#def help():
-#	print "func.ref_a(a)"
-#	print "a,x=1,1"
-#	print "Ex_y0,Ey_y0,zxx,ne_y0,k_x=func.E_x_y_zxx(a)"
-#	print "global p_y0"
-#	print "func.p_y0=scalar_p(Ex_y0)"    
-#	print "func.ref_index(x,Ex_y0,Ey_y0,zxx,ne_y0)"
+def help():
+	print "func.ref_a(a)"
+	print "a,x=1,1"
+	print "Ex_y0,Ey_y0,zxx,ne_y0,k_x=func.E_x_y_zxx(a)"
+	print "global p_y0"
+	print "func.p_y0=scalar_p(Ex_y0)"    
+	print "func.ref_index(x,Ex_y0,Ey_y0,zxx,ne_y0)"
