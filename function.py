@@ -11,6 +11,7 @@ def E_x_y_zxx(a):
 	Ex_y0=Ex[...,int(const.Ny/2)]
 	Ey=data["Electric Field/Ey"].data
 	Ey_y0=Ey[...,int(const.Ny/2)]
+	###k_x
 	k,x,zxx=signal.stft(Ey_y0,fs=2*pi/const.delta_x,nperseg=const.nperseg)
 	zxx=abs(zxx)
 	index = np.unravel_index(zxx.argmax(),zxx.shape)
@@ -24,6 +25,8 @@ def E_x_y_zxx(a):
 		max_index=a.index(max(a))
 		if max(a) > 0.2 * zxx[index[0]][index[1]]:
 			k_x[i]=(k[max_index+1])
+	k_x
+	###
 	ne=data['Derived/Number_Density/electron1'].data
 	ne_y0=ne[...,int(const.Ny/2)]
 
